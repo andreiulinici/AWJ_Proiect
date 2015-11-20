@@ -6,12 +6,14 @@ import java.util.ArrayList;
 public class Persoana {
   private String name;
   private int id;
+  private int age;
 
   public Persoana() {}
 
-  public Persoana(int id, String name) {
+  public Persoana(int id, String name, int age) {
       this.name = name;
       this.id = id;
+	  this.age = age;
   }
 
   public String getName() {
@@ -20,5 +22,9 @@ public class Persoana {
 
   public int getId() {
     return this.id;
+  }
+  
+  public int getAge(){
+	  return this.age;
   }
 }

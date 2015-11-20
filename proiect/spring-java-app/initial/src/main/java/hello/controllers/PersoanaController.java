@@ -17,9 +17,9 @@ public class PersoanaController {
   private List<Persoana> persoane = new ArrayList<Persoana>();
 
   PersoanaController() {
-    Persoana p1 = new Persoana(1, "John");
-    Persoana p2 = new Persoana(2, "Paul");
-    Persoana p3 = new Persoana(3, "Paul");
+    Persoana p1 = new Persoana(1, "Sam", 21);
+    Persoana p2 = new Persoana(2, "Robert", 22);
+    Persoana p3 = new Persoana(3, "Paul", 23);
 
     persoane.add(p1);
     persoane.add(p2);
@@ -30,7 +30,19 @@ public class PersoanaController {
   public List<Persoana> index() {
     return this.persoane;
   }
+  
+  
+  
+  @RequestMapping(value="/persoana/{Name}/{Age}", method = RequestMethod.POST)
+  public List<Persoana> create() {
+	  Persoana p4 = new Persoana(4, "Andrew", 24);
+	  persoane.add(p4);
+	  
+	  return this.persoane;
+  }
 
+  
+  
   @RequestMapping(value="/persoana/{id}", method = RequestMethod.GET)
   public ResponseEntity show(@PathVariable("id") int id) {
     for(Persoana p : this.persoane) {
@@ -41,7 +53,7 @@ public class PersoanaController {
     return new ResponseEntity<String>(null, new HttpHeaders(), HttpStatus.NOT_FOUND);
   }
 
-  @RequestMapping(value="/persoana/{id}", method = RequestMethod.DEL)
+  @RequestMapping(value="/persoana/{id}", method = RequestMethod.DELETE)
   public ResponseEntity remove(@PathVariable("id") int id) {
     for(Persoana p : this.persoane) {
       if(p.getId() == id) {
