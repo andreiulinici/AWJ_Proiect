@@ -11,16 +11,17 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 import java.util.ArrayList;
 
-
+				
 @RestController
 public class MasiniController {
 	private List<Masini> masini = new ArrayList<Masini>();
 
 	MasiniController() {
-		Masini m1 = new Masini(1, "Koenigsegg",2009);
+		Masini m1 = new Masini(1, "Koenigsegg",2009);	// Prefer aceasta indentare, cu tab
 		Masini m2 = new Masini(2, "Pagani",2010);
 		Masini m3 = new Masini(3, "Bugatti",2008);
 		Masini m4 = new Masini(4, "Ferrari",2012);
+		
 		masini.add(m1);
 		masini.add(m2);
 		masini.add(m3);
@@ -53,6 +54,9 @@ public class MasiniController {
 	public ResponseEntity update(@PathVariable("id") int id) {
 		for(Masini p : this.masini){
 			if(p.getId() == id) {
+				p.setId(id);
+				p.setMarca("Marca implicita");
+				p.setAn(2015);
 				return new ResponseEntity<Masini>(p,new HttpHeaders(), HttpStatus.OK);
 		}
 	}

@@ -20,6 +20,7 @@ public class CarsController {
 		Cars c1 = new Cars(1, "Bentley", "Continental", 2500, 90000);
 		Cars c2 = new Cars(2, "Range Rover", "Evoque", 1550, 68000);
 		Cars c3 = new Cars(3, "Ferrari", "LaFerrari", 4000, 145000);
+		
 		cars.add(c1);
 		cars.add(c2);
 		cars.add(c3);
@@ -47,10 +48,15 @@ public class CarsController {
 		return this.cars;
 	}
   
-	@RequestMapping(value="cars/{id}",method = RequestMethod.PUT)
+	@RequestMapping(value="/cars/{id}",method = RequestMethod.PUT)
 	public ResponseEntity update(@PathVariable("id") int id) {
 		for(Cars p : this.cars){
 			if(p.getId() == id) {
+				p.setId(id);
+				p.setManufacturer("Default Manufacturer");
+				p.setModel("Default Model");
+				p.setMiles(0);
+				p.setPrice(0);
 				return new ResponseEntity<Cars>(p,new HttpHeaders(), HttpStatus.OK);
 		}
 	}

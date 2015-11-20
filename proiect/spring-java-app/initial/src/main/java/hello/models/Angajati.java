@@ -14,7 +14,6 @@ public class Angajati {
     this.nume = nume;
     this.id = id;
     this.an = an;
-
   }
 
   public String getNume() {
@@ -27,4 +26,16 @@ public class Angajati {
   public int getAn() {
     return this.an;
   }
+  
+  public void setNume(String nume) {
+	this.nume = nume;
+  }
+	  
+  public void setId(int id) {
+	this.id = id;
+  }
+  public void setAn(int an) {
+	this.an = an;
+  }
+  
 }

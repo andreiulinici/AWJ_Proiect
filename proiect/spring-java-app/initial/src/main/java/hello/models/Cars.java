@@ -36,4 +36,20 @@ public class Cars {
   public int getPrice() {
     return this.price;
   }
+  
+  public void setManufacturer(String manufacturer) {
+	this.manufacturer = manufacturer;
+  }  
+  public void setModel(String model) {
+	this.model = model;
+  }
+  public void setId(int id) {
+	this.id = id;
+  }
+  public void setMiles(int miles) {
+    this.miles = miles;
+  }
+  public void setPrice(int price) {
+    this.price = price;
+  }
 }

@@ -20,6 +20,7 @@ public class AngajatiController {
 		Angajati a1 = new Angajati(1, "Popescu Marius",2007);
 		Angajati a2 = new Angajati(2, "Popescu Ana",2008);
 		Angajati a3 = new Angajati(3, "Stefanescu Mihai",2009);
+		
 		angajati.add(a1);
 		angajati.add(a2);	
 		angajati.add(a3);
@@ -35,8 +36,8 @@ public class AngajatiController {
 		for(Angajati p : this.angajati) {
 			if(p.getId() == id) {
 				return new ResponseEntity<Angajati>(p, new HttpHeaders(), HttpStatus.OK);
+			}
 		}
-    }
 	return new ResponseEntity<String>(null, new HttpHeaders(), HttpStatus.NOT_FOUND);
 	}
   
@@ -47,13 +48,16 @@ public class AngajatiController {
 		return this.angajati;
 	}
   
-	@RequestMapping(value="angajati/{id}",method = RequestMethod.PUT)
+	@RequestMapping(value="/angajati/{id}", method = RequestMethod.PUT)
 	public ResponseEntity update(@PathVariable("id") int id) {
 		for(Angajati p : this.angajati){
-			if(p.getId() == id) {
-				return new ResponseEntity<Angajati>(p,new HttpHeaders(), HttpStatus.OK);
+			if(p.getId() == id) {				
+				p.setNume("Nume default");
+				p.setId(id);
+				p.setAn(2015);	
+				return new ResponseEntity<Angajati>(p, new HttpHeaders(), HttpStatus.OK);
+			}
 		}
-	}
 	return new ResponseEntity<String>(null,new HttpHeaders(), HttpStatus.NOT_FOUND);
 	}
 

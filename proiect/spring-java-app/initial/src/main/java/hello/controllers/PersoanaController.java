@@ -26,24 +26,12 @@ public class PersoanaController {
     persoane.add(p3);
   }
 
-  @RequestMapping(value="/persoana", method = RequestMethod.GET)
+  @RequestMapping(value="/persoane", method = RequestMethod.GET)
   public List<Persoana> index() {
     return this.persoane;
   }
   
-  
-  
-  @RequestMapping(value="/persoana/{Name}/{Age}", method = RequestMethod.POST)
-  public List<Persoana> create() {
-	  Persoana p4 = new Persoana(4, "Andrew", 24);
-	  persoane.add(p4);
-	  
-	  return this.persoane;
-  }
-
-  
-  
-  @RequestMapping(value="/persoana/{id}", method = RequestMethod.GET)
+  @RequestMapping(value="persoane/{id}", method = RequestMethod.GET)
   public ResponseEntity show(@PathVariable("id") int id) {
     for(Persoana p : this.persoane) {
       if(p.getId() == id) {
@@ -51,9 +39,30 @@ public class PersoanaController {
       }
     }
     return new ResponseEntity<String>(null, new HttpHeaders(), HttpStatus.NOT_FOUND);
+  }  
+    
+  @RequestMapping(value="/persoane/{id}/{nume}/{varsta}", method = RequestMethod.POST)
+  public List<Persoana> create(@PathVariable(value="id") int id,@PathVariable(value="nume") String nume,@PathVariable(value="varsta") int varsta) {
+	//Persoana p = new Persoana(4, "Andrew", 24);
+	Persoana p = new Persoana(id, nume, varsta);
+	persoane.add(p);
+	return this.persoane;
   }
-
-  @RequestMapping(value="/persoana/{id}", method = RequestMethod.DELETE)
+	
+  @RequestMapping(value="/persoane/{id}",method = RequestMethod.PUT)
+	public ResponseEntity update(@PathVariable("id") int id) {
+	  for(Persoana p : this.persoane){
+		if(p.getId() == id) {
+		  p.setId(id);
+		  p.setNume("Andrew");
+		  p.setVarsta(21);
+		  return new ResponseEntity<Persoana>(p, new HttpHeaders(), HttpStatus.OK);
+		}
+	}
+	return new ResponseEntity<String>(null,new HttpHeaders(), HttpStatus.NOT_FOUND);
+  }
+  
+  @RequestMapping(value="/persoane/{id}", method = RequestMethod.DELETE)
   public ResponseEntity remove(@PathVariable("id") int id) {
     for(Persoana p : this.persoane) {
       if(p.getId() == id) {

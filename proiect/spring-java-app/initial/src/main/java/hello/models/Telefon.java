@@ -21,7 +21,7 @@ public class Telefon {
 
   }
 
-  public String getName() {
+  public String getMarca() {
     return this.marca;
   }
   public String getCuloare() {
@@ -35,5 +35,21 @@ public class Telefon {
   }
   public int getPret() {
     return this.pret;
+  }
+  
+  public void setMarca(String marca) {
+	this.marca = marca;
+  }
+  public void setCuloare(String culoare) {
+    this.culoare = culoare;
+  }
+  public void setId(int id) {
+    this.id = id;
+  }
+  public void setAn(int an) {
+    this.an = an;
+  }
+  public void setPret(int pret) {
+    this.pret = pret;
   }
 }
