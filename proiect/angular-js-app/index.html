@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html ng-app="blog">
+<html ng-app="blog">				<!-- .json la finalul linkului? -->
 <head>
-  <title>My application</title>
+  <title>Andrew's application</title>
   <link rel="stylesheet" media="all" href="css/bootstrap.min.css">
   <link rel="stylesheet" media="all" href="css/custom.css">
 </head>
@@ -16,7 +16,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="">&nbsp;&nbsp;AWJ Base Project</a>
+          <a class="navbar-brand" href="">&nbsp;&nbsp;Andrew's AWJ Project</a> <!--MODIFICAT-->
         </div>
        <div id='cssmenu'>
        <ul>
@@ -27,9 +27,9 @@
             <li><a href="#Masina"><span>Masina</span></a></li>
             <li><a href="#Telefon"><span>Telefon</span></a></li>
            </li>
-         </div>   
+         </div>   					
         </ul>
-        </div>
+        </div>			<!-- in models: package hello; sau package hello.models; ??? -->
        </div>
     </nav>
   </div>
@@ -44,119 +44,49 @@
   </div>
 
   <hr/>
+  
+ <!-- fct adaugare, editare, stergere, aducere din backend in frontend -->
 
                                 <!-- /resources1 -->
-  <div class="container">
-    <h1 id="Persoana">Persoana</h1>
-    <h2>Listeaza toate persoanele</h2>                                      <!-- Listeaza -->
+								
+  <div class="container" ng-controller="HomeController">
+  
+    <h1 id="Persoana">Persoane</h1>
+	
+    <h2>Lista persoane</h2>                                      <!-- Listeaza -->
+	
     <table class="table table-bordered">
       <tr>
-        <th>ID</th>
-        <th>Nume</th>
-        <th>Varsta</th>
+		<th ng-repeat="field in fields">{{field | uppercase}}</th>
         <th style="width:210px;">Optiuni</th>
       </tr>
-      <tr>
-        <td>001</td>
-        <td>Andrei</td>
-        <td>21</td>
+      <tr ng-repeat="persoana in persoane" data-id="{{persoana.id}}">	  
+        <td>{{persoana.id}}</td>				<!-- MODIFICAT -->
+        <td>{{persoana.nume}}</td>
+        <td>{{persoana.varsta}}</td>
         <td>
           <a href="#Persoana">
             <span class="label label-success">
-              Deschide
-              <span class="glyphicon glyphicon-folder-open"></span>
+				Deschide
+            <span class="glyphicon glyphicon-folder-open"></span>
             </span>
           </a>
           <a href="">
-            <span class="label label-primary">
-              Editeaza
-              <span class="glyphicon glyphicon-edit"></span>
-            </span>
+			<button ng-click="setUpdatePhone(persoana)" class="btn btn-info btn-xs">
+				Editeaza
+            <span class="glyphicon glyphicon-edit"></span>
+			</button>
           </a>
           <a href="">
-            <span class="label label-danger">
-              Sterge
-              <span class="glyphicon glyphicon-remove"></span>
-            </span>
-          </a>
+            <button ng-click="deletePersoana(persoana.id)" class="btn btn-danger btn-xs">
+				Sterge
+            <span class="glyphicon glyphicon-remove"></span>
+            </button>
+		  </a>
         </td>
       </tr>
-      <tr>
-        <td>002</td>
-        <td>Ana-Maria</td>
-        <td>20</td>
-        <td>
-          <a href="">
-            <span class="label label-success">
-              Deschide
-              <span class="glyphicon glyphicon-folder-open"></span>
-            </span>
-          </a>
-          <a href="">
-            <span class="label label-primary">
-              Editeaza
-              <span class="glyphicon glyphicon-edit"></span>
-            </span>
-          </a>
-          <a href="">
-            <span class="label label-danger">
-              Sterge
-              <span class="glyphicon glyphicon-remove"></span>
-            </span>
-          </a>
-        </td>
-      </tr>
-      <tr>
-        <td>003</td>
-        <td>Elena</td>
-        <td>23</td>
-        <td>
-          <a href="">
-            <span class="label label-success">
-              Deschis
-              <span class="glyphicon glyphicon-folder-open"></span>
-            </span>
-          </a>
-          <a href="">
-            <span class="label label-primary">
-              Editeaza
-              <span class="glyphicon glyphicon-edit"></span>
-            </span>
-          </a>
-          <a href="">
-            <span class="label label-danger">
-              Sterge
-              <span class="glyphicon glyphicon-remove"></span>
-            </span>
-          </a>
-        </td>
-      </tr>
-      <tr>
-        <td>004</td>
-        <td>Marian</td>
-        <td>24</td>
-        <td>
-          <a href="">
-            <span class="label label-success">
-              Deschide
-              <span class="glyphicon glyphicon-folder-open"></span>
-            </span>
-          </a>
-          <a href="">
-            <span class="label label-primary">
-              Editeaza
-              <span class="glyphicon glyphicon-edit"></span>
-            </span>
-          </a>
-          <a href="">
-            <span class="label label-danger">
-              Sterge
-              <span class="glyphicon glyphicon-remove"></span>
-            </span>
-          </a>
-        </td>
-      </tr>
-    </table>
+	</table>  
+	  
 
     <div class="row">
       <div class="col-md-3">
@@ -164,38 +94,40 @@
         <form action="" method="">
           <div class="form-group">
             <label for="attribute1">ID</label>
-            <input type="text" class="form-control" id="attribute1" placeholder="ID">
+            <input type="text" class="form-control" id="attribute1" placeholder="ID" ng-model="editPerson.id">
           </div>
           <div class="form-group">
             <label for="attribute2">Nume</label>
-            <input type="text" class="form-control" id="attribute2" placeholder="Nume">
+            <input type="text" class="form-control" id="attribute2" placeholder="Nume" ng-model="editPerson.nume">
           </div>
           <div class="form-group">
             <label for="attribute3">Varsta</label>
-            <input type="text" class="form-control" id="attribute3" placeholder="Varsta">
+            <input type="text" class="form-control" id="attribute3" placeholder="Varsta" ng-model="editPerson.varsta">
           </div>
-          <button type="submit" class="btn btn-info">Salveaza</button>
+          <button ng-click="updatePerson()" type="submit" class="btn btn-info">Salveaza</button>
         </form>
       </div>
 
 
       <div class="col-md-3 col-md-offset-6">
         <h2>Adauga o persoana</h2>                                      <!-- Adauga -->
+		
         <form action="" method="">
           <div class="form-group">
             <label for="attribute1">ID</label>
-            <input type="text" class="form-control" id="attribute1" placeholder="ID">
+            <input type="text" class="form-control" id="attribute1" placeholder="ID" ng-model="persoana.id">
           </div>
           <div class="form-group">
             <label for="attribute2">Nume</label>
-            <input type="text" class="form-control" id="attribute2" placeholder="Nume">
+            <input type="text" class="form-control" id="attribute2" placeholder="Nume" ng-model="persoana.nume">
           </div>
           <div class="form-group">
             <label for="attribute3">Varsta</label>
-            <input type="text" class="form-control" id="attribute3" placeholder="Varsta">
+            <input type="text" class="form-control" id="attribute3" placeholder="Varsta" ng-model="persoana.varsta">
           </div>
-          <button type="submit" class="btn btn-success">Adauga</button>
-        </form>
+		  
+          <button ng-click="addPersoana()" class="btn btn-success">Adauga</button>
+        </form>  		<!-- type Submit ???  addPersoana(persoana) ??? -->
       </div>
     </div>
 
@@ -217,117 +149,44 @@
   <hr/>
 
                                         <!-- /resources2-->
-  <div class="container">
+										
+  <div class="container" ng-controller="AngajatController">
+  
     <h1 id="Angajat">Angajat</h1>
+	
     <h2>Listati toti angajatii</h2>                                      <!-- Listeaza -->
+	
     <table class="table table-bordered">
       <tr>
-        <th>ID</th>
-        <th>Nume</th>
-        <th>Anul angajarii</th>
+		<th ng-repeat="field in fields">{{field | uppercase}}</th>
         <th style="width:210px;">Optiuni</th>
       </tr>
-      <tr>
-        <td>001</td>
-        <td>Andrei Ulinici</td>
-        <td>2013</td>
+      <tr ng-repeat="angajat in angajati" data-id="{{angajat.id}}">	  
+        <td>{{angajat.id}}</td>				<!-- MODIFICAT -->
+        <td>{{angajat.nume}}</td>
+        <td>{{angajat.an}}</td>
         <td>
           <a href="#Angajat">
             <span class="label label-success">
-              Deschide
-              <span class="glyphicon glyphicon-folder-open"></span>
+				Deschide
+            <span class="glyphicon glyphicon-folder-open"></span>
             </span>
           </a>
           <a href="">
-            <span class="label label-primary">
-              Editeaza
-              <span class="glyphicon glyphicon-edit"></span>
-            </span>
+			<button ng-click="setUpdateEmployee(angajat)" class="btn btn-info btn-xs">
+				Editeaza
+            <span class="glyphicon glyphicon-edit"></span>
+			</button>
           </a>
           <a href="">
-            <span class="label label-danger">
-              Sterge
-              <span class="glyphicon glyphicon-remove"></span>
-            </span>
-          </a>
+            <button ng-click="deleteAngajat(angajat.id)" class="btn btn-danger btn-xs">
+				Sterge
+            <span class="glyphicon glyphicon-remove"></span>
+            </button>
+		  </a>
         </td>
       </tr>
-      <tr>
-        <td>002</td>
-        <td>Ioana Popescu</td>
-        <td>2014</td>
-        <td>
-          <a href="">
-            <span class="label label-success">
-              Deschide
-              <span class="glyphicon glyphicon-folder-open"></span>
-            </span>
-          </a>
-          <a href="">
-            <span class="label label-primary">
-              Editeaza
-              <span class="glyphicon glyphicon-edit"></span>
-            </span>
-          </a>
-          <a href="">
-            <span class="label label-danger">
-              Sterge
-              <span class="glyphicon glyphicon-remove"></span>
-            </span>
-          </a>
-        </td>
-      </tr>
-      <tr>
-        <td>005</td>
-        <td>Ana-Maria Ionescu</td>
-        <td>2015</td>
-        <td>
-          <a href="">
-            <span class="label label-success">
-              Deschide
-              <span class="glyphicon glyphicon-folder-open"></span>
-            </span>
-          </a>
-          <a href="">
-            <span class="label label-primary">
-              Editeaza
-              <span class="glyphicon glyphicon-edit"></span>
-            </span>
-          </a>
-          <a href="">
-            <span class="label label-danger">
-              Sterge
-              <span class="glyphicon glyphicon-remove"></span>
-            </span>
-          </a>
-        </td>
-      </tr>
-      <tr>
-        <td>007</td>
-        <td>Marius Bogdan Apostol</td>
-        <td>2015</td>
-        <td>
-          <a href="">
-            <span class="label label-success">
-              Deschide
-              <span class="glyphicon glyphicon-folder-open"></span>
-            </span>
-          </a>
-          <a href="">
-            <span class="label label-primary">
-              Editeaza
-              <span class="glyphicon glyphicon-edit"></span>
-            </span>
-          </a>
-          <a href="">
-            <span class="label label-danger">
-              Sterge
-              <span class="glyphicon glyphicon-remove"></span>
-            </span>
-          </a>
-        </td>
-      </tr>
-    </table>
+	</table> 
 
     <div class="row">
       <div class="col-md-3">
@@ -335,17 +194,17 @@
         <form action="" method="">
           <div class="form-group">
             <label for="attribute1">ID</label>
-            <input type="text" class="form-control" id="attribute1" placeholder="ID">
+            <input type="text" class="form-control" id="attribute1" placeholder="ID" ng-model="editEmployee.id">
           </div>
           <div class="form-group">
             <label for="attribute2">Nume</label>
-            <input type="text" class="form-control" id="attribute2" placeholder="Nume">
+            <input type="text" class="form-control" id="attribute2" placeholder="Nume" ng-model="editEmployee.nume">
           </div>
           <div class="form-group">
             <label for="attribute3">Anul angajarii</label>
-            <input type="text" class="form-control" id="attribute3" placeholder="Anul angajarii">
+            <input type="text" class="form-control" id="attribute3" placeholder="Anul angajarii" ng-model="editEmployee.an">
           </div>  
-          <button type="submit" class="btn btn-info">Salveaza</button>
+          <button ng-click="updateEmployee()" type="submit" class="btn btn-info">Salveaza</button>
         </form>
       </div>
 
@@ -355,17 +214,17 @@
         <form action="" method="">
           <div class="form-group">
             <label for="attribute1">ID</label>
-            <input type="text" class="form-control" id="attribute1" placeholder="ID">
+            <input type="text" class="form-control" id="attribute1" placeholder="ID"  ng-model="angajat.id">
           </div>
           <div class="form-group">
             <label for="attribute2">Nume</label>
-            <input type="text" class="form-control" id="attribute2" placeholder="Nume">
+            <input type="text" class="form-control" id="attribute2" placeholder="Nume" ng-model="angajat.nume">
           </div>
           <div class="form-group">
             <label for="attribute3">Anul angajarii</label>
-            <input type="text" class="form-control" id="attribute3" placeholder="Anul angajarii">
+            <input type="text" class="form-control" id="attribute3" placeholder="Anul angajarii" ng-model="angajat.an">
           </div>   
-          <button type="submit" class="btn btn-success">Adauga</button>
+          <button ng-click="addAngajat()" type="submit" class="btn btn-success">Adauga</button>
         </form>
       </div>
     </div>
@@ -387,132 +246,45 @@
   <hr/>
     
                                 <!-- /resources3 -->
-  <div class="container">
+								
+  <div class="container" ng-controller="MasinaController">
     <h1 id="Masina">Masina</h1>
     <h2>Listeaza toate masinile</h2>                                      <!-- Listeaza -->
+	
     <table class="table table-bordered">
       <tr>
-        <th>ID</th>
-        <th>Marca</th>
-        <th>Model</th>
-        <th>An</th>
-        <th>Kilometri</th>
-        <th>Pret [euro]</th>
+		<th ng-repeat="field in fields">{{field | uppercase}}</th>
         <th style="width:210px;">Optiuni</th>
       </tr>
-      <tr>
-        <td>001</td>
-        <td>Koenigsegg</td>
-        <td>Agera R</td>
-        <td>2014</td>
-        <td>15 000</td>
-        <td>1 700 000</td>        
+      <tr ng-repeat="masina in masini" data-id="{{masina.id}}">	  
+        <td>{{masina.id}}</td>				<!-- MODIFICAT -->
+        <td>{{masina.marca}}</td>
+        <td>{{masina.model}}</td>
+		<td>{{masina.an}}</td>
+		<td>{{masina.kilometri}}</td>
+		<td>{{masina.pret}}</td>
         <td>
           <a href="#Masina">
             <span class="label label-success">
-              Deschide
-              <span class="glyphicon glyphicon-folder-open"></span>
+				Deschide
+            <span class="glyphicon glyphicon-folder-open"></span>
             </span>
           </a>
           <a href="">
-            <span class="label label-primary">
-              Editeaza
-              <span class="glyphicon glyphicon-edit"></span>
-            </span>
+			<button ng-click="setUpdateCar(masina)" class="btn btn-info btn-xs">
+				Editeaza
+            <span class="glyphicon glyphicon-edit"></span>
+			</button>
           </a>
           <a href="">
-            <span class="label label-danger">
-              Sterge
-              <span class="glyphicon glyphicon-remove"></span>
-            </span>
-          </a>
+            <button ng-click="deleteMasina(masina.id)" class="btn btn-danger btn-xs">
+				Sterge
+            <span class="glyphicon glyphicon-remove"></span>
+            </button>
+		  </a>
         </td>
       </tr>
-      <tr>
-        <td>002</td>
-        <td>Lamborghini</td>
-        <td>Veneno</td>
-        <td>2014</td>
-        <td>30 000</td>
-        <td>4 000 000</td>        
-        <td>
-          <a href="">
-            <span class="label label-success">
-              Deschide
-              <span class="glyphicon glyphicon-folder-open"></span>
-            </span>
-          </a>
-          <a href="">
-            <span class="label label-primary">
-              Editeaza
-              <span class="glyphicon glyphicon-edit"></span>
-            </span>
-          </a>
-          <a href="">
-            <span class="label label-danger">
-              Sterge
-              <span class="glyphicon glyphicon-remove"></span>
-            </span>
-          </a>
-        </td>
-      </tr>
-      <tr>
-        <td>003</td>
-        <td>Lamborghini</td>
-        <td>Aventador</td>
-        <td>2012</td>
-        <td>80 000</td>
-        <td>800 000</td>        
-        <td>
-          <a href="">
-            <span class="label label-success">
-              Deschide
-              <span class="glyphicon glyphicon-folder-open"></span>
-            </span>
-          </a>
-          <a href="">
-            <span class="label label-primary">
-              Editeaza
-              <span class="glyphicon glyphicon-edit"></span>
-            </span>
-          </a>
-          <a href="">
-            <span class="label label-danger">
-              Sterge
-              <span class="glyphicon glyphicon-remove"></span>
-            </span>
-          </a>
-        </td>
-      </tr>
-      <tr>
-        <td>004</td>
-        <td>McLaren</td>
-        <td>MP4-12C</td>
-        <td>2011</td>
-        <td>120 000</td>
-        <td>250 000</td>        
-        <td>
-          <a href="">
-            <span class="label label-success">
-              Deschide
-              <span class="glyphicon glyphicon-folder-open"></span>
-            </span>
-          </a>
-          <a href="">
-            <span class="label label-primary">
-              Editeaza
-              <span class="glyphicon glyphicon-edit"></span>
-            </span>
-          </a>
-          <a href="">
-            <span class="label label-danger">
-              Sterge
-              <span class="glyphicon glyphicon-remove"></span>
-            </span>
-          </a>
-        </td>
-      </tr>
-    </table>
+	</table>  
 
     <div class="row">
       <div class="col-md-3">
@@ -520,29 +292,29 @@
         <form action="" method="">
           <div class="form-group">
             <label for="attribute1">ID</label>
-            <input type="text" class="form-control" id="attribute1" placeholder="ID">
+            <input type="text" class="form-control" id="attribute1" placeholder="ID"  ng-model="editCar.id">
           </div>
           <div class="form-group">
             <label for="attribute2">Marca</label>
-            <input type="text" class="form-control" id="attribute2" placeholder="Marca">
+            <input type="text" class="form-control" id="attribute2" placeholder="Marca" ng-model="editCar.marca">
           </div>
           <div class="form-group">
             <label for="attribute3">Model</label>
-            <input type="text" class="form-control" id="attribute3" placeholder="Model">
+            <input type="text" class="form-control" id="attribute3" placeholder="Model" ng-model="editCar.model">
           </div>
           <div class="form-group">
             <label for="attribute4">An</label>
-            <input type="text" class="form-control" id="attribute4" placeholder="An">
+            <input type="text" class="form-control" id="attribute4" placeholder="An" ng-model="editCar.an">
           </div>
           <div class="form-group">
             <label for="attribute5">Kilometri</label>
-            <input type="text" class="form-control" id="attribute5" placeholder="Kilometri">
+            <input type="text" class="form-control" id="attribute5" placeholder="Kilometri" ng-model="editCar.kilometri">
           </div>
           <div class="form-group">
             <label for="attribute6">Pret</label>
-            <input type="text" class="form-control" id="attribute6" placeholder="Pret">
+            <input type="text" class="form-control" id="attribute6" placeholder="Pret" ng-model="editCar.pret">
           </div>
-          <button type="submit" class="btn btn-info">Salveaza</button>
+          <button ng-click="updateCar()" type="submit" class="btn btn-info">Salveaza</button>
         </form>
       </div>
 
@@ -552,29 +324,29 @@
         <form action="" method="">
           <div class="form-group">
             <label for="attribute1">ID</label>
-            <input type="text" class="form-control" id="attribute1" placeholder="ID">
+            <input type="text" class="form-control" id="attribute1" placeholder="ID" ng-model="masina.id">
           </div>
            <div class="form-group">
             <label for="attribute2">Marca</label>
-            <input type="text" class="form-control" id="attribute2" placeholder="Marca">
+            <input type="text" class="form-control" id="attribute2" placeholder="Marca" ng-model="masina.marca">
           </div>
           <div class="form-group">
             <label for="attribute3">Model</label>
-            <input type="text" class="form-control" id="attribute3" placeholder="Model">
+            <input type="text" class="form-control" id="attribute3" placeholder="Model" ng-model="masina.model">
           </div>
           <div class="form-group">
             <label for="attribute4">An</label>
-            <input type="text" class="form-control" id="attribute4" placeholder="An">
+            <input type="text" class="form-control" id="attribute4" placeholder="An" ng-model="masina.an">
           </div>
           <div class="form-group">
             <label for="attribute5">Kilometri</label>
-            <input type="text" class="form-control" id="attribute5" placeholder="Kilometri">
+            <input type="text" class="form-control" id="attribute5" placeholder="Kilometri" ng-model="masina.kilometri">
           </div>
           <div class="form-group">
             <label for="attribute6">Pret</label>
-            <input type="text" class="form-control" id="attribute6" placeholder="Pret">
+            <input type="text" class="form-control" id="attribute6" placeholder="Pret" ng-model="masina.pret">
           </div>
-          <button type="submit" class="btn btn-success">Adauga</button>
+          <button ng-click="addMasina()" class="btn btn-success">Adauga</button>
         </form>
       </div>
     </div>
@@ -601,152 +373,70 @@
 
                                   <!-- /resources4 -->
   <div class="container">
-    <h1 id="Telefon">Telefon<h1>
-    <h2>Listeaza toate telefonele</h2>                                      <!-- Listeaza -->
+  
+    <h1 id="Telefon">Telefoane<h1>
+	
+    <h2>Listeaza toate telefonele</h2>									<!-- Listeaza -->
+	
     <table class="table table-bordered">
       <tr>
-        <th>ID</th>
-        <th>Marca</th>
-        <th>Culoare</th>
-        <th>An</th>
-        <th>Pret [lei]</th>
+		<th ng-repeat="field in fields">{{field | uppercase}}</th>
         <th style="width:210px;">Optiuni</th>
       </tr>
-      <tr>
-        <td>001</td>
-        <td>LG G4</td>
-        <td>Leather Red</td>
-        <td>2014</td>
-        <td>2 000 </td>        
+      <tr ng-repeat="telefon in telefoane" data-id="{{telefon.id}}">	  
+        <td>{{telefon.id}}</td>				<!-- MODIFICAT -->
+        <td>{{telefon.marca}}</td>
+        <td>{{telefon.culoare}}</td>
+		<td>{{telefon.an}}</td>
+		<td>{{telefon.pret}}</td>
         <td>
           <a href="#Telefon">
             <span class="label label-success">
-              Deschide
-              <span class="glyphicon glyphicon-folder-open"></span>
+				Deschide
+            <span class="glyphicon glyphicon-folder-open"></span>
             </span>
           </a>
           <a href="">
-            <span class="label label-primary">
-              Editeaza
-              <span class="glyphicon glyphicon-edit"></span>
-            </span>
+			<button ng-click="setUpdatePhone(telefon)" class="btn btn-info btn-xs">
+				Editeaza
+            <span class="glyphicon glyphicon-edit"></span>
+			</button>
           </a>
           <a href="">
-            <span class="label label-danger">
-              Sterge
-              <span class="glyphicon glyphicon-remove"></span>
-            </span>
-          </a>
+            <button ng-click="deleteTelefon(telefon.id)" class="btn btn-danger btn-xs">
+				Sterge
+            <span class="glyphicon glyphicon-remove"></span>
+            </button>
+		  </a>
         </td>
       </tr>
-      <tr>
-        <td>002</td>
-        <td>OnePlus Two</td>
-        <td>Bamboo</td>
-        <td>2015</td>
-        <td>2 500</td>        
-        <td>
-          <a href="">
-            <span class="label label-success">
-              Deschide
-              <span class="glyphicon glyphicon-folder-open"></span>
-            </span>
-          </a>
-          <a href="">
-            <span class="label label-primary">
-              Editeaza
-              <span class="glyphicon glyphicon-edit"></span>
-            </span>
-          </a>
-          <a href="">
-            <span class="label label-danger">
-              Sterge
-              <span class="glyphicon glyphicon-remove"></span>
-            </span>
-          </a>
-        </td>
-      </tr>
-      <tr>
-        <td>003</td>
-        <td>Samsung Galaxy S6</td>
-        <td>Albastru</td>
-        <td>2015</td>
-        <td>3 500</td>        
-        <td>
-          <a href="">
-            <span class="label label-success">
-              Deschide
-              <span class="glyphicon glyphicon-folder-open"></span>
-            </span>
-          </a>
-          <a href="">
-            <span class="label label-primary">
-              Editeaza
-              <span class="glyphicon glyphicon-edit"></span>
-            </span>
-          </a>
-          <a href="">
-            <span class="label label-danger">
-              Sterge
-              <span class="glyphicon glyphicon-remove"></span>
-            </span>
-          </a>
-        </td>
-      </tr>
-      <tr>
-        <td>004</td>
-        <td>Apple Iphone 6</td>
-        <td>Auriu</td>
-        <td>2014</td>
-        <td>2 900</td>        
-        <td>
-          <a href="">
-            <span class="label label-success">
-              Deschide
-              <span class="glyphicon glyphicon-folder-open"></span>
-            </span>
-          </a>
-          <a href="">
-            <span class="label label-primary">
-              Editeaza
-              <span class="glyphicon glyphicon-edit"></span>
-            </span>
-          </a>
-          <a href="">
-            <span class="label label-danger">
-              Sterge
-              <span class="glyphicon glyphicon-remove"></span>
-            </span>
-          </a>
-        </td>
-      </tr>
-    </table>
-
+	</table> 
+	
     <div class="row">
       <div class="col-md-3">
         <h2>Editeaza un telefon</h2>                                      <!-- Editeaza -->
         <form action="" method="">
           <div class="form-group">
             <label for="attribute1">ID</label>
-            <input type="text" class="form-control" id="attribute1" placeholder="ID">
+            <input type="text" class="form-control" id="attribute1" placeholder="ID" ng-model="editPhone.id">
           </div>
           <div class="form-group">
             <label for="attribute2">Marca</label>
-            <input type="text" class="form-control" id="attribute2" placeholder="Marca">
+            <input type="text" class="form-control" id="attribute2" placeholder="Marca" ng-model="editPhone.marca">
           </div>
           <div class="form-group">
             <label for="attribute3">Culoare</label>
-            <input type="text" class="form-control" id="attribute3" placeholder="Culoare">
+            <input type="text" class="form-control" id="attribute3" placeholder="Culoare" ng-model="editPhone.culoare">
           </div>
           <div class="form-group">
             <label for="attribute4">An</label>
-            <input type="text" class="form-control" id="attribute4" placeholder="An">
+            <input type="text" class="form-control" id="attribute4" placeholder="An" ng-model="editPhone.an">
           </div>
           <div class="form-group">
-            <label for="attribute6">Pret</label>
-            <input type="text" class="form-control" id="attribute6" placeholder="Pret">
+            <label for="attribute5">Pret</label>
+            <input type="text" class="form-control" id="attribute5" placeholder="Pret" ng-model="editPhone.pret">
           </div>
-          <button type="submit" class="btn btn-info">Salveaza</button>
+          <button ng-click="updatePhone()" type="submit" class="btn btn-info">Salveaza</button>
         </form>
       </div>
 
@@ -756,25 +446,25 @@
         <form action="" method="">
           <div class="form-group">
             <label for="attribute1">ID</label>
-            <input type="text" class="form-control" id="attribute1" placeholder="ID">
+            <input type="text" class="form-control" id="attribute1" placeholder="ID" ng-model="telefon.id">
           </div>
            <div class="form-group">
             <label for="attribute2">Marca</label>
-            <input type="text" class="form-control" id="attribute2" placeholder="Marca">
+            <input type="text" class="form-control" id="attribute2" placeholder="Marca" ng-model="telefon.marca">
           </div>
           <div class="form-group">
             <label for="attribute3">Culoare</label>
-            <input type="text" class="form-control" id="attribute3" placeholder="Culoare">
+            <input type="text" class="form-control" id="attribute3" placeholder="Culoare" ng-model="telefon.culoare">
           </div>
           <div class="form-group">
             <label for="attribute4">An</label>
-            <input type="text" class="form-control" id="attribute4" placeholder="An">
+            <input type="text" class="form-control" id="attribute4" placeholder="An" ng-model="telefon.an">
           </div>
           <div class="form-group">
-            <label for="attribute6">Pret</label>
-            <input type="text" class="form-control" id="attribute6" placeholder="Pret">
+            <label for="attribute5">Pret</label>
+            <input type="text" class="form-control" id="attribute5" placeholder="Pret" ng-model="telefon.pret">
           </div>
-          <button type="submit" class="btn btn-success">Adauga</button>
+          <button ng-click="addTelefon()" class="btn btn-success">Adauga</button>
         </form>
       </div>
     </div>

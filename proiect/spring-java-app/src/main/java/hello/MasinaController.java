@@ -74,6 +74,4 @@ public class MasinaController {
 		}
 		return new ResponseEntity<String>(null, new HttpHeaders(), HttpStatus.NOT_FOUND);
 	}
-	
-
 }

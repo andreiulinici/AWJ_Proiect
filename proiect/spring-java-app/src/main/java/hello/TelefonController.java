@@ -17,9 +17,9 @@ public class TelefonController {
   private List<Telefon> telefon = new ArrayList<Telefon>();
 
   TelefonController() {
-	Telefon t1 = new Telefon(1, "Iphone 6", "gri", 2015, 3200);
-	Telefon t2 = new Telefon(2, "Samsung Edge", "alb", 2015, 2900);
-	Telefon t3 = new Telefon(3, "LG G4", "rosu", 2014, 2100);
+	Telefon t1 = new Telefon(1, "Iphone6", "gri", 2015, 3200);
+	Telefon t2 = new Telefon(2, "SamsungEdge", "alb", 2015, 2900);
+	Telefon t3 = new Telefon(3, "LGG4", "rosu", 2014, 2100);
 	
 	telefon.add(t1);
 	telefon.add(t2);
